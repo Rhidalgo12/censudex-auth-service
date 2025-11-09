@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "fGyba8qCttE=",
+  "dgSpecHash": "CVH8R7qscQs=",
   "success": true,
   "projectFilePath": "C:\\Users\\rauli\\OneDrive\\Escritorio\\authService\\authService\\authService.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\rauli\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\rauli\\.nuget\\packages\\dotnetenv\\3.1.1\\dotnetenv.3.1.1.nupkg.sha512",
     "C:\\Users\\rauli\\.nuget\\packages\\google.protobuf\\3.33.0\\google.protobuf.3.33.0.nupkg.sha512",
     "C:\\Users\\rauli\\.nuget\\packages\\grpc.aspnetcore\\2.64.0\\grpc.aspnetcore.2.64.0.nupkg.sha512",
