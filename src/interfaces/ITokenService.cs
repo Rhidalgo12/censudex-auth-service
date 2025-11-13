@@ -9,7 +9,7 @@ namespace authService.src.interfaces
 {
     public interface ITokenService
     {
-        string GenerateToken(Login login);
+        TokenResult GenerateToken(Login login);
         void RevokeToken(string token);
         ClaimsPrincipal? ValidateToken(string token);
     }

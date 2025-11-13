@@ -12,6 +12,15 @@ using Grpc.Net.Client.Web;
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ConfigureEndpointDefaults(listenOptions =>
+    {
+        listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2;
+    });
+});
+
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -29,20 +38,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 builder.Services.AddGrpc();
-var grpcAddress = "https://localhost:5000"; 
-var channel = GrpcChannel.ForAddress(grpcAddress, new GrpcChannelOptions
-{
-    HttpHandler = new GrpcWebHandler(new HttpClientHandler())
-});
 
-// Inyectar el cliente gRPC
-builder.Services.AddSingleton(new UserService.UserServiceClient(channel));
+
 
 var app = builder.Build();
 

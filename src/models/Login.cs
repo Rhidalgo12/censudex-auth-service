@@ -9,7 +9,8 @@ namespace authService.src.models
     {
         public Guid Id { get; set; }
 
-        public List<string> Roles { get; set; }
+    
+        public List<string> Roles { get; set; } = new List<string>();
 
     }
 }

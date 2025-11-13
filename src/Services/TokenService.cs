@@ -23,7 +23,7 @@ namespace authService.src.Services
             _signingKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(signingKey));
         }
 
-        public string GenerateToken(Login login)
+        public TokenResult GenerateToken(Login login)
         {
             var claims = new List<Claim>
             {
@@ -44,26 +44,27 @@ namespace authService.src.Services
             var issuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? throw new ArgumentNullException("JWT Issuer cannot be null or empty.");
             var audience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? throw new ArgumentNullException("JWT Audience cannot be null or empty.");
 
+            var expires = DateTime.UtcNow.AddHours(1);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddHours(1),
+                Expires = expires,
                 SigningCredentials = creds,
                 Issuer = issuer,
                 Audience = audience
             };
-
+ 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            _Tokens.Add(tokenHandler.WriteToken(token));
-
-
-            return tokenHandler.WriteToken(token);
-
-
-
-
+ 
+            var tokenString = tokenHandler.WriteToken(token);
+            _Tokens.Add(tokenString);
+ 
+            return new TokenResult
+            {
+                Token = tokenString,
+                Expires = expires
+            };
         }
 
 

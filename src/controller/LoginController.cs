@@ -9,6 +9,7 @@ using System.Security.Claims;
 using authService.src.models;
 using authService.src.dtos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using UserProto;
 
 namespace authService.src.controller
 {
@@ -19,28 +20,47 @@ namespace authService.src.controller
     {
 
         private readonly ITokenService _tokenService;
+        private readonly UserService.UserServiceClient _userClient;
 
-        public LoginController(ITokenService tokenService)
+        public LoginController(ITokenService tokenService, UserService.UserServiceClient userClient)
         {
             _tokenService = tokenService;
+            _userClient = userClient;
         }
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] Login login)
+        public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
         {
-            if (login == null)
+            if (loginDto == null)
             {
                 return BadRequest("Invalid login request.");
             }
+            var grpcReq = new LoginRequest
+            {
+                EmailOrUsername = loginDto.Email,
+                Password = loginDto.Password
+            };
+
+            
+            var grpcRes = await _userClient.LoginUserAsync(grpcReq);
+
+            
+            if (string.IsNullOrEmpty(grpcRes.Id))
+                return Unauthorized("Invalid credentials.");
+
+            var login = new Login
+            {
+                Id = Guid.Parse(grpcRes.Id),
+                Roles = new List<string> { grpcRes.Role }
+            };
 
             var token = _tokenService.GenerateToken(login);
             var result = new
             {
                 Token = token
-            };  
+            };
             return Ok(result);
-
         }
 
         [HttpGet]
