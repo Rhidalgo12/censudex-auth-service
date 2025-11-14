@@ -7,6 +7,9 @@ using System.Security.Claims;
 
 namespace authService.src.interfaces
 {
+    /// <summary>
+    /// Interface for token service to create, remove and validate JWT tokens.
+    /// </summary>
     public interface ITokenService
     {
         TokenResult GenerateToken(Login login);

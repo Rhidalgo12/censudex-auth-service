@@ -13,12 +13,17 @@ using UserProto;
 
 namespace authService.src.controller
 {
+    /// <summary>
+    /// Controlador para manejar las operaciones de inicio de sesión y gestión de tokens
+    /// </summary>
 
     [ApiController]
     [Route("api/[controller]")]
     public class LoginController : ControllerBase
     {
-
+        /// <summary>
+        /// Controller para la gestión de tokens JWT
+        /// </summary>
         private readonly ITokenService _tokenService;
         private readonly UserService.UserServiceClient _userClient;
 
@@ -28,7 +33,9 @@ namespace authService.src.controller
             _userClient = userClient;
         }
 
-
+        /// <summary>   
+        /// Maneja la solicitud de inicio de sesión y genera un token JWT
+        /// </summary>
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
         {
@@ -42,7 +49,10 @@ namespace authService.src.controller
                 Password = loginDto.Password
             };
 
-            
+            /// <summary>
+            /// Llama al servicio gRPC para autenticar al usuario
+            /// </summary>
+            /// <returns></returns>
             var grpcRes = await _userClient.LoginUserAsync(grpcReq);
 
             
@@ -54,7 +64,10 @@ namespace authService.src.controller
                 Id = Guid.Parse(grpcRes.Id),
                 Roles = new List<string> { grpcRes.Role }
             };
-
+            /// <summary>
+            /// Genera un token JWT para el usuario autenticado
+            /// </summary>
+            /// <returns></returns>
             var token = _tokenService.GenerateToken(login);
             var result = new
             {
@@ -63,6 +76,10 @@ namespace authService.src.controller
             return Ok(result);
         }
 
+        /// <summary>
+        /// Valida un token JWT y devuelve los reclamos si es válido
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Authorize]
         public IActionResult ValidateToken(){
@@ -81,7 +98,9 @@ namespace authService.src.controller
             };
             return Ok(result);  
         }
-
+        /// <summary>
+        /// Revoca un token JWT eliminándolo de la lista de tokens válidos
+        /// </summary>
         [HttpPost("logout")]
         [Authorize]
         public IActionResult Logout(){

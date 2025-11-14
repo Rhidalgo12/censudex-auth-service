@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "c9b1d8f2-ec17-46dc-b118-4336dd06022c",
+		"name": "Auth-Service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38439958"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@censudex.cl\",\r\n  \"password\": \"AdminPassw0rd!\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5010/api/login/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5010",
+					"path": [
+						"api",
+						"login",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"admin@censudex.cl\",\r\n  \"password\": \"AdminPassw0rd!\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5010/api/login/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5010",
+							"path": [
+								"api",
+								"login",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Nov 2025 02:59:28 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"token\": {\n        \"token\": \"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIwNGZiZTFkNy1mYTJlLTQ2ZjAtOWU4NC0xNDFmYjI4NDUxODAiLCJqdGkiOiJkMDlmZmYzNy00NzlkLTRmNmUtYTE2Yi0wZmE3NzZiMTExOTEiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3NjMwODkxNjgsImV4cCI6MTc2MzA5Mjc2OCwiaWF0IjoxNzYzMDg5MTY4LCJpc3MiOiJjZW5zdWRleC1hdXRoLXNlcnZpY2UiLCJhdWQiOiJjZW5zdWRleC1hcGktdXNlcnMifQ.TVxJlNv84G5D-tgZhZ-O0GbpQe0QNoJGAwiYIE-NhhZpSUbYpUWkvIVCvtW81lOaaNAoLCeFeUduE8UgV66i9Q\",\n        \"expires\": \"2025-11-14T03:59:28.7338546Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Validate-Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIwNGZiZTFkNy1mYTJlLTQ2ZjAtOWU4NC0xNDFmYjI4NDUxODAiLCJqdGkiOiJkMDlmZmYzNy00NzlkLTRmNmUtYTE2Yi0wZmE3NzZiMTExOTEiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3NjMwODkxNjgsImV4cCI6MTc2MzA5Mjc2OCwiaWF0IjoxNzYzMDg5MTY4LCJpc3MiOiJjZW5zdWRleC1hdXRoLXNlcnZpY2UiLCJhdWQiOiJjZW5zdWRleC1hcGktdXNlcnMifQ.TVxJlNv84G5D-tgZhZ-O0GbpQe0QNoJGAwiYIE-NhhZpSUbYpUWkvIVCvtW81lOaaNAoLCeFeUduE8UgV66i9Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5010/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5010",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5010/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5010",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Nov 2025 02:59:58 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"04fbe1d7-fa2e-46f0-9e84-141fb2845180\",\n    \"roles\": [\n        \"Admin\"\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIwNGZiZTFkNy1mYTJlLTQ2ZjAtOWU4NC0xNDFmYjI4NDUxODAiLCJqdGkiOiJkMDlmZmYzNy00NzlkLTRmNmUtYTE2Yi0wZmE3NzZiMTExOTEiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3NjMwODkxNjgsImV4cCI6MTc2MzA5Mjc2OCwiaWF0IjoxNzYzMDg5MTY4LCJpc3MiOiJjZW5zdWRleC1hdXRoLXNlcnZpY2UiLCJhdWQiOiJjZW5zdWRleC1hcGktdXNlcnMifQ.TVxJlNv84G5D-tgZhZ-O0GbpQe0QNoJGAwiYIE-NhhZpSUbYpUWkvIVCvtW81lOaaNAoLCeFeUduE8UgV66i9Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5010/api/login/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5010",
+					"path": [
+						"api",
+						"login",
+						"logout"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5010/api/login/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5010",
+							"path": [
+								"api",
+								"login",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Nov 2025 03:00:23 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Token revoked successfully.\"\n}"
+				}
+			]
+		}
+	]
+}

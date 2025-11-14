@@ -12,7 +12,10 @@ using Grpc.Net.Client.Web;
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
-
+/// <summary>
+/// Configuración y construcción de la aplicación web
+/// </summary>
+/// <value></value>
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ConfigureEndpointDefaults(listenOptions =>
@@ -20,7 +23,12 @@ builder.WebHost.ConfigureKestrel(options =>
         listenOptions.Protocols = Microsoft.AspNetCore.Server.Kestrel.Core.HttpProtocols.Http1AndHttp2;
     });
 });
-
+/// <summary>
+/// Inyección de dependencias para ITokenService y TokenService
+/// </summary>
+/// <typeparam name="ITokenService"></typeparam>
+/// <typeparam name="TokenService"></typeparam>
+/// <returns></returns>
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -43,6 +51,13 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddAuthorization();
 builder.Services.AddGrpc();
+
+// Registrar cliente gRPC del servicio de usuarios
+builder.Services.AddGrpcClient<UserService.UserServiceClient>(o =>
+{
+    o.Address = new Uri(Environment.GetEnvironmentVariable("CLIENTS_SERVICE_URL") ?? "http://localhost:5000");
+})
+.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler());
 
 
 
